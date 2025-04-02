@@ -22,7 +22,6 @@ samples, guidance on mobile development, and a full API reference.
 Follow these steps to set up and run the Flutter project.
 
 📌 **Prerequisites**
-
 -> Install Flutter SDK
 ->Install Android Studio
 
@@ -40,7 +39,6 @@ git clone https://github.com/your-repo-name.git
 cd your-project-folder
 
 **Generate Firebase SHA Keys**
-
 To generate SHA keys for Firebase authentication:
 
 For Windows:
@@ -63,3 +61,11 @@ For Build Apk run below command
 
 
 
+Assumptions :
+Regarding the Country list I need to manage in single list from api and firebase I don't know so I made 2 different list and display.
+
+
+If Phone number Login not working then try login with below credentials:
+
+Mobile: +91 9712345678
+OTP: 111111
