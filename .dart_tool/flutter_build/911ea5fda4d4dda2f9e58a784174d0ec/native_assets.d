@@ -1,0 +1,1 @@
+ /Users/dhruvi/Documents/Freelance/firebase_getx_auth_crud/.dart_tool/flutter_build/911ea5fda4d4dda2f9e58a784174d0ec/native_assets.yaml: 
