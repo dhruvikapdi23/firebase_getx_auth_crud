@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_getx_auth_crud/firebase_options.dart';
 import 'package:firebase_getx_auth_crud/screens/auth_screens/login_screen/login_screen.dart';
@@ -15,6 +16,9 @@ void main() async{
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
   );
   runApp(const MyApp());
 }

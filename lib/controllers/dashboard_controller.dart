@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_getx_auth_crud/api_helpers/api_utils.dart';
 import 'package:firebase_getx_auth_crud/config.dart';
@@ -11,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../api_helpers/api_manager.dart';
+import '../utils/collection_name.dart';
 
 class DashboardController extends GetxController {
   RxBool isLoading = false.obs;
@@ -20,6 +22,7 @@ class DashboardController extends GetxController {
   static const int _pageSize = 20;
   List<CountryModel> allCountries = []; //
   List<CountryModel> filteredCountries = [];
+  bool isNet = false;
 
 // Full dataset
   TextEditingController search = TextEditingController();
@@ -34,6 +37,8 @@ class DashboardController extends GetxController {
 
   Future<void> _fetchAllData() async {
     try {
+      isNet = await AppFunctions.checkInternet();
+
       allCountries = await getCountryList();
       filteredCountries = allCountries;
       log("allCountries:${allCountries.length}");
@@ -132,11 +137,23 @@ class DashboardController extends GetxController {
     return highList; // Ensure bookList is returned properly
   }
 
-  logout(){
+  logout() {
     storage.remove(Session.user);
     storage.remove(Session.isLogin);
     storage.remove(Session.isDarkMode);
     FirebaseAuth.instance.signOut();
-   Get.offAllNamed(RouteName().loginScreen);
+    Get.offAllNamed(RouteName().loginScreen);
+  }
+
+  Stream getFirebaseData() {
+    if (isNet) {
+      return FirebaseFirestore.instance
+          .collection(CollectionName.customCountries)
+          .snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection(CollectionName.customCountries)
+          .snapshots(source: ListenSource.cache);
+    }
   }
 }

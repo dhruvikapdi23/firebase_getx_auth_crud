@@ -16,9 +16,7 @@ class FirebaseCountryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(builder: (dash) {
       return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection(CollectionName.customCountries)
-            .snapshots(),
+        stream: dash.getFirebaseData(),
         builder: (context, snapshot) {
           if (snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
             return ListView.builder(
